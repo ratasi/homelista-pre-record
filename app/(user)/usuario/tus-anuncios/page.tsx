@@ -1,7 +1,9 @@
+"use client";
 import { ButtonPrimary, Navbar } from "@/components/Shared";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const fakeData = [
   {
@@ -24,6 +26,12 @@ const fakeData = [
   },
 ];
 export default function TusAnunciosPage() {
+  const router = useRouter();
+
+  const publishAd = () => {
+    router.push("/usuario/publicar-anuncio");
+  };
+
   return (
     <div className="w-full bg-[#F4F5F2] min-h-screen">
       <Navbar theme="yellow" />
@@ -31,7 +39,8 @@ export default function TusAnunciosPage() {
       <div className="bg-white w-full py-5">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-semibold">Tus anuncios</h1>
-          <ButtonPrimary text="Publicar tu anuncio" />
+
+          <ButtonPrimary text="Publicar tu anuncio" onClick={publishAd} />
         </div>
       </div>
 
