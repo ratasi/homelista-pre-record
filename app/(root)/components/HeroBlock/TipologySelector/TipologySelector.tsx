@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { dataTipologyTypes } from "./TipologySelector.data";
+import { dataTipologyTypes } from "@/models/tipology.data";
 
 export function TipologySelector() {
   const defaultValue = "Viviendas";

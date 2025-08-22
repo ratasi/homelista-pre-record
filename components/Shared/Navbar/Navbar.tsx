@@ -51,9 +51,7 @@ export function Navbar(props: NavbarProps) {
               </Link>
             </Button>
           ) : (
-            <div>
-              <UserDropdown />
-            </div>
+            <UserDropdown />
           )}
           <Button
             variant="outline"

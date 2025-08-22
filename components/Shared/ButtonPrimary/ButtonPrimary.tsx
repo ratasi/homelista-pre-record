@@ -8,7 +8,7 @@ export function ButtonPrimary(props: ButtonPrimaryProps) {
   return (
     <Button
       className={cn(
-        "bg-[#b62682] border border-[#b62682] rounded-none font-bold text-lg h-[42px] hover:bg-[#8c1d64] w-full md:w-auto",
+        "bg-[#b62682] border border-[#b62682] rounded-none font-bold text-lg h-[42px] hover:bg-[#8c1d64] w-full md:w-auto cursor-pointer",
         className
       )}
       onClick={onClick}

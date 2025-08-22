@@ -7,15 +7,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Heart, House, LogOut, User } from "lucide-react";
+import { ChevronDown, Heart, House, LogOut, User } from "lucide-react";
 import Link from "next/link";
 
 export function UserDropdown() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button>
-          <User /> Mi cuenta
+          <User /> Mi cuenta <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
