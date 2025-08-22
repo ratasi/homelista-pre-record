@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const pixelySans = Pixelify_Sans({
   variable: "--font-pixely-sans",
@@ -26,10 +27,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  session,
 }: Readonly<{
   children: React.ReactNode;
-  session: any;
 }>) {
   return (
     <html lang="es">
@@ -37,6 +36,7 @@ export default function RootLayout({
         className={`${pixelySans.variable} ${geistSans.variable} ${geistMono.variable}  antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

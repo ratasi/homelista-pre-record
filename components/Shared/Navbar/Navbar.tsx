@@ -1,3 +1,4 @@
+"use client";
 import { Logo } from "@/components/Shared";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
@@ -5,13 +6,22 @@ import Link from "next/link";
 import { MobileNav } from "./MobileNav";
 import { navbarData } from "./Navbar.data";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
+import { NavbarProps } from "./Navbar.types";
+import { useEffect, useState } from "react";
+import { UserDropdown } from "./UserDropdown";
 
-export type NavbarProps = {
-  theme: "light" | "yellow";
-};
+type SessionType = Awaited<ReturnType<typeof authClient.getSession>>["data"];
 
 export function Navbar(props: NavbarProps) {
   const { theme } = props;
+  const [session, setSession] = useState<SessionType>(null);
+
+  useEffect(() => {
+    authClient.getSession().then((res) => {
+      setSession(res.data);
+    });
+  }, []);
 
   const navbarClass = theme === "light" ? "bg-white" : "bg-[#E1F56E]";
 
@@ -31,18 +41,25 @@ export function Navbar(props: NavbarProps) {
           </div>
         </div>
         <div className="hidden md:flex items-center gap-2">
+          {session === undefined ? (
+            <p>Cargando...</p>
+          ) : session === null ? (
+            <Button variant="ghost" className="ml-2 text-lg" asChild>
+              <Link href="/login">
+                <User className="" />
+                Acceder
+              </Link>
+            </Button>
+          ) : (
+            <div>
+              <UserDropdown />
+            </div>
+          )}
           <Button
             variant="outline"
             className="border-2 border-[#6f6f6d] font-extrabold"
           >
             Pon tu anuncio gratis
-          </Button>
-
-          <Button variant="ghost" className="ml-2 text-lg" asChild>
-            <Link href="/login">
-              <User className="" />
-              Acceder
-            </Link>
           </Button>
         </div>
       </div>

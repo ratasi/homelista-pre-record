@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { ButtonPrimary } from "@/components/Shared";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
@@ -15,12 +15,7 @@ export function SearchInput() {
         />
       </div>
 
-      <Button
-        className="bg-[#b62682] border border-[#b62682] rounded-none font-bold text-xl h-[46px] hover:bg-[#8c1d64] w-full md:w-auto"
-        size="lg"
-      >
-        Buscar
-      </Button>
+      <ButtonPrimary text="Buscar" className="h-[46px]" />
     </div>
   );
 }
