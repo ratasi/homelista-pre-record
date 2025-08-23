@@ -1,3 +1,5 @@
+import { ClientUploadedFileData } from "uploadthing/types";
+
 export type FormType = {
   tipology: string;
   location: string;
@@ -11,4 +13,7 @@ export type FormType = {
   bathrooms: string;
   energyCertificate: string;
   price: string;
+  images: UploadedImage[];
 };
+
+type UploadedImage = ClientUploadedFileData<{ completed: boolean }>;
