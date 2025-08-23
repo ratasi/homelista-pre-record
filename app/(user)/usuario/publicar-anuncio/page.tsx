@@ -14,7 +14,8 @@ import {
 import { FormType } from "./page.types";
 
 export default function PublicarAnuncio() {
-  const [step, setStep] = useState(2);
+  // TODO: put in 1
+  const [step, setStep] = useState(3);
   const [formProperty, setFormProperty] = useState<FormType>({
     tipology: "",
     location: "",
@@ -28,6 +29,7 @@ export default function PublicarAnuncio() {
     bathrooms: "",
     energyCertificate: "",
     price: "",
+    images: [],
   });
 
   return (
