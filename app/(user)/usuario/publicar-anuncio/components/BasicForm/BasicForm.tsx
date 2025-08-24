@@ -27,6 +27,7 @@ import { dataTipologyTypes } from "@/models/tipology.data";
 import { BasicFormProps } from "./BasicForm.types";
 import { formSchema } from "./BasicForm.data";
 import { fetchCoordinates } from "@/utils/fetchCoordinates";
+import { normalizeString } from "@/utils/normalizeString";
 
 export function BasicForm(props: BasicFormProps) {
   const { setStep, formProperty, setFormProperty } = props;
@@ -50,6 +51,8 @@ export function BasicForm(props: BasicFormProps) {
     setFormProperty((prev) => ({
       ...prev,
       ...values,
+      tipology: normalizeString(values.tipology),
+      location: normalizeString(values.location),
       latitude: coords?.latitude ?? null,
       longitude: coords?.longitude ?? null,
     }));

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import axios from "axios";
 
@@ -5,16 +6,18 @@ import { ButtonPrimary } from "@/components/Shared";
 
 import { SummaryProps } from "./Summary.types";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function Summary(props: SummaryProps) {
   const { formProperty } = props;
+  const router = useRouter();
 
   const onPublish = async () => {
     try {
-      const response = await axios.post("/api/property", formProperty);
-      console.log(response);
+      await axios.post("/api/property", formProperty);
 
       toast("Inmueble subido");
+      router.push("/usuario/tus-anuncios");
     } catch (error) {
       console.log(error);
     }

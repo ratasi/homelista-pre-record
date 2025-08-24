@@ -39,3 +39,54 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(newProperty, { status: 201 });
   } catch (error) {}
 }
+
+// app/api/property/route.ts
+import { eq, and, sql } from "drizzle-orm";
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+
+    const opUrl = searchParams.get("operation");
+    const tipologyUrl = searchParams.get("tipology");
+    const locationUrl = searchParams.get("location");
+
+    if (!opUrl || !tipologyUrl || !locationUrl) {
+      return NextResponse.json({ error: "Faltan parámetros" }, { status: 400 });
+    }
+
+    let operation: "venta" | "alquiler";
+    if (opUrl.toLowerCase() === "comprar") {
+      operation = "venta";
+    } else if (opUrl.toLowerCase() === "alquilar") {
+      operation = "alquiler";
+    } else {
+      return NextResponse.json(
+        { error: "Operación no válida" },
+        { status: 400 }
+      );
+    }
+
+    const tipology = tipologyUrl.replace(/-/g, " "); // "locales-o-naves" -> "locales o naves"
+    const location = locationUrl.toLowerCase();
+
+    const results = await db
+      .select()
+      .from(property)
+      .where(
+        and(
+          eq(property.operation, operation),
+          eq(property.tipology, tipology),
+          sql`${property.location} ILIKE ${location}`
+        )
+      );
+
+    return NextResponse.json(results);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Error en la consulta" },
+      { status: 500 }
+    );
+  }
+}

@@ -69,12 +69,14 @@ export function UploadPhotos(props: UploadPhotosProps) {
         </div>
       )}
 
-      <div className="mt-10 flex items-center justify-center">
-        <ButtonPrimary
-          text="Siguiente paso"
-          onClick={() => setStep((prev) => prev + 1)}
-        />
-      </div>
+      {imagesProperty && (
+        <div className="mt-10 flex items-center justify-center">
+          <ButtonPrimary
+            text="Siguiente paso"
+            onClick={() => setStep((prev) => prev + 1)}
+          />
+        </div>
+      )}
     </div>
   );
 }
