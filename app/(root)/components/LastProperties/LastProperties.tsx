@@ -22,7 +22,6 @@ export function LastProperties() {
 
   if (loading) return <p>Cargando...</p>;
   if (properties.length === 0) return <p>No hay propiedades aún.</p>;
-  console.log({ properties });
 
   return (
     <div>

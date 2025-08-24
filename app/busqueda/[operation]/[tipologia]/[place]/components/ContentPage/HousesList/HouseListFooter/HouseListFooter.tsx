@@ -8,7 +8,6 @@ export type HouseListFooterProps = {
 
 export function HouseListFooter(props: HouseListFooterProps) {
   const { houseId, phone } = props;
-  console.log(houseId);
 
   return (
     <div className="flex justify-between items-center w-full">
