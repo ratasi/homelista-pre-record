@@ -10,12 +10,12 @@ import { ButtonPrimary } from "@/components/Shared";
 
 import { UploadPhotosProps } from "./UploadPhotos.types";
 
-type UploadedImage = ClientUploadedFileData<{ completed: boolean }>;
-
+// type UploadedImage = ClientUploadedFileData<{ completed: boolean }>;
+type UploadedImage = { url: string };
 export function UploadPhotos(props: UploadPhotosProps) {
   const { formProperty, setFormProperty, setStep } = props;
   const [imagesProperty, setImagesProperty] = useState<UploadedImage[] | null>(
-    null
+    formProperty.images
   );
 
   return (
@@ -39,24 +39,31 @@ export function UploadPhotos(props: UploadPhotosProps) {
         <UploadButton
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
-            setImagesProperty(res);
+            // setImagesProperty(res);
+            // setFormProperty((prev) => ({
+            //   ...prev,
+            //   images: res,
+            // }));
+            const urls = res.map((file) => ({ url: file.ufsUrl }));
+
+            setImagesProperty(res); // si quieres guardar localmente
             setFormProperty((prev) => ({
               ...prev,
-              images: res,
+              images: urls,
             }));
           }}
           onUploadError={() => {
             console.error("Ha ocurrido un error");
           }}
-          className="bg-[#e5e6e1]"
+          className="bg-gray-300 p-4"
         />
       </div>
 
       {imagesProperty && (
         <div className="grid grid-cols-2 gap-2">
           {imagesProperty.map((image) => (
-            <div key={image.key}>
-              <Image src={image.ufsUrl} alt="" width={400} height={400} />
+            <div key={image.url}>
+              <Image src={image.url} alt="" width={400} height={400} />
             </div>
           ))}
         </div>

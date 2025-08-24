@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Shared";
-import { ChooseGrid, HeroBlock, HomeApp } from "./components";
+import { ChooseGrid, HeroBlock, HomeApp, LastProperties } from "./components";
 
 export default function Home() {
   return (
@@ -11,6 +11,8 @@ export default function Home() {
       <ChooseGrid />
 
       <HomeApp />
+
+      <LastProperties />
     </div>
   );
 }

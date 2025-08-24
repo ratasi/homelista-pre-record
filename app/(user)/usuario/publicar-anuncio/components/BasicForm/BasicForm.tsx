@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { dataTipologyTypes } from "@/models/tipology.data";
 import { BasicFormProps } from "./BasicForm.types";
 import { formSchema } from "./BasicForm.data";
+import { fetchCoordinates } from "@/utils/fetchCoordinates";
 
 export function BasicForm(props: BasicFormProps) {
   const { setStep, formProperty, setFormProperty } = props;
@@ -41,10 +42,16 @@ export function BasicForm(props: BasicFormProps) {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const fullAddress = `${values.streetName} ${values.streetNumber}, ${values.location}`;
+
+    const coords = await fetchCoordinates(fullAddress);
+
     setFormProperty((prev) => ({
       ...prev,
       ...values,
+      latitude: coords?.latitude ?? null,
+      longitude: coords?.longitude ?? null,
     }));
     setStep((prev) => prev + 1);
   };

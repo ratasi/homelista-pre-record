@@ -1,4 +1,14 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  pgEnum,
+  integer,
+  varchar,
+  numeric,
+  jsonb,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -60,4 +70,37 @@ export const verification = pgTable("verification", {
   ),
 });
 
-export const schema = { user, session, account, verification };
+export const operationEnum = pgEnum("operation", ["venta", "alquiler"]);
+
+export const property = pgTable("property", {
+  id: text("id").primaryKey(), // si quieres puedes usar serial, pero si usas `text` será más consistente con Better Auth
+  tipology: varchar("tipology", { length: 100 }).notNull(),
+  location: varchar("location", { length: 255 }).notNull(),
+  streetName: varchar("street_name", { length: 255 }).notNull(),
+  streetNumber: varchar("street_number", { length: 20 }),
+
+  operation: operationEnum("operation").notNull(),
+
+  stateHouse: varchar("state_house", { length: 100 }),
+  buildMeters: integer("build_meters"),
+  utilsMeters: integer("utils_meters"),
+
+  rooms: integer("rooms"),
+  bathrooms: integer("bathrooms"),
+  energyCertificate: varchar("energy_certificate", { length: 50 }),
+
+  price: numeric("price", { precision: 12, scale: 2 }).notNull(),
+  images: jsonb("images").$type<{ url: string }[]>().default([]).notNull(),
+
+  latitude: numeric("latitude", { precision: 10, scale: 7 }),
+  longitude: numeric("longitude", { precision: 10, scale: 7 }),
+
+  // Relación con usuario
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const schema = { user, session, account, verification, property };
