@@ -10,12 +10,12 @@ import {
   DetailsForm,
   UploadPhotos,
   PricingForm,
+  Summary,
 } from "./components";
 import { FormType } from "./page.types";
 
 export default function PublicarAnuncio() {
-  // TODO: put in 1
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [formProperty, setFormProperty] = useState<FormType>({
     tipology: "",
     location: "",
@@ -65,7 +65,9 @@ export default function PublicarAnuncio() {
           />
         )}
 
-        {step === 4 && <PricingForm />}
+        {step === 4 && <PricingForm setStep={setStep} />}
+
+        {step === 5 && <Summary formProperty={formProperty} />}
       </div>
     </div>
   );

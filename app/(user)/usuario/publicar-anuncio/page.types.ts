@@ -16,4 +16,8 @@ export type FormType = {
   images: UploadedImage[];
 };
 
-type UploadedImage = ClientUploadedFileData<{ completed: boolean }>;
+// type UploadedImage = ClientUploadedFileData<{ completed: boolean }>;
+
+type UploadedImage = {
+  url: string;
+};

@@ -13,10 +13,11 @@ export function HeaderStepper(props: HeaderStepperProps) {
     { id: 2, title: "Detalles" },
     { id: 3, title: "Fotos" },
     { id: 4, title: "Pago" },
+    { id: 5, title: "Resumen" },
   ];
 
   return (
-    <div className="grid grid-cols-4">
+    <div className="grid grid-cols-5">
       {steps.map((st) => (
         <div
           key={st.id}
